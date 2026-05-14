@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大溪 · DAXI｜2026.06.20</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F7F3EC;
+  --cream-dark: #EDE7D9;
+  --cream-mid: #E5DDD0;
+  --ink: #2A2218;
+  --ink-mid: #6B5F50;
+  --ink-light: #A89880;
+  --rust: #B85C38;
+  --rust-light: #F2E4DC;
+  --rust-mid: #D4856A;
+  --teal: #2E7A6B;
+  --teal-light: #E2F0ED;
+  --teal-mid: #7BBDB5;
+  --gold: #C4923A;
+  --gold-light: #FBF0DC;
+  --border: #D8CFC0;
+  --shadow-sm: 0 1px 4px rgba(42,34,24,0.06);
+  --shadow: 0 2px 10px rgba(42,34,24,0.09);
+  --shadow-lg: 0 4px 20px rgba(42,34,24,0.12);
+  --radius: 10px;
+  --radius-sm: 6px;
+  /* 天氣主題 - 預設晴天 */
+  --weather-primary: var(--rust);
+  --weather-light: var(--rust-light);
+  --weather-mid: var(--rust-mid);
+}
+.rainy-theme {
+  --weather-primary: var(--teal);
+  --weather-light: var(--teal-light);
+  --weather-mid: var(--teal-mid);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  padding-bottom: 72px;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,160,130,0.1) 27px, rgba(180,160,130,0.1) 28px);
+}
+
+/* ══════════ HEADER ══════════ */
+.header {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 24px 20px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+.header.rainy { background: #2A3540; }
+.header-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+  background: var(--cream);
+}
+.header-bg-circle:nth-child(1) { width: 200px; height: 200px; top: -80px; right: -60px; }
+.header-bg-circle:nth-child(2) { width: 120px; height: 120px; bottom: -40px; left: 40%; }
+.header-stamp {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 62px; height: 62px;
+  border: 2px solid var(--weather-primary);
+  border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transform: rotate(12deg);
+  opacity: 0.9;
+  transition: border-color 0.4s;
+}
+.stamp-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 9px;
+  color: var(--weather-primary);
+  text-align: center;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  transition: color 0.4s;
+}
+.header-date {
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: 0.18em;
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+.header-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--weather-primary);
+  margin-bottom: 3px;
+  transition: color 0.4s;
+}
+.header-main {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.header-tags {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-top: 10px;
+}
+.tag {
+  border: 1px solid rgba(247,243,236,0.2);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: rgba(247,243,236,0.65);
+  letter-spacing: 0.02em;
+}
+
+/* ══════════ WEATHER TAB (行程頁限定) ══════════ */
+.weather-tab-wrapper {
+  background: var(--cream-dark);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: none;
+}
+.weather-tab-wrapper.visible { display: block; }
+.weather-tabs {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+.weather-btn {
+  flex: 1;
+  padding: 13px 8px;
+  border: none;
+  background: transparent;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13px;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -1px;
+  letter-spacing: 0.05em;
+}
+.weather-btn.active { color: var(--rust); border-bottom-color: var(--rust); font-weight: 700; }
+.weather-btn.active.rainy-active { color: var(--teal); border-bottom-color: var(--teal); }
+
+/* ══════════ BOTTOM NAV ══════════ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  display: flex;
+  padding: 6px 0 10px;
+  z-index: 200;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+}
+.nav-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 9.5px;
+  color: rgba(247,243,236,0.4);
+  cursor: pointer;
+  padding: 4px 0;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  transition: color 0.2s;
+  letter-spacing: 0.05em;
+}
+.nav-icon { font-size: 18px; line-height: 1; }
+.nav-btn.active { color: var(--cream); }
+
+/* ══════════ PAGE ══════════ */
+.page { display: none; padding: 14px 16px; padding-bottom: 80px; }
+.page.active { display: block; }
+
+/* ══════════ WEATHER CONTENT ══════════ */
+.weather-content { display: none; }
+.weather-content.active { display: block; }
+
+/* ══════════ ROUTE BANNER ══════════ */
+.route-banner {
+  background: white;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--weather-primary);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 12px;
+  color: var(--ink-mid);
+  line-height: 1.9;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.route-label {
+  position: absolute;
+  top: -8px; left: 12px;
+  background: var(--cream);
+  padding: 0 6px;
+  font-size: 9.5px;
+  color: var(--weather-primary);
+  letter-spacing: 0.1em;
+  font-family: 'Noto Serif TC', serif;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.route-arrow { color: var(--ink-light); margin: 0 3px; }
+
+/* ══════════ SECTION TITLE ══════════ */
+.sec-title {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 11px;
+  color: var(--ink-mid);
+  letter-spacing: 0.12em;
+  margin: 16px 0 10px;
+}
+.sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ══════════ TIMELINE ══════════ */
+.tl-item { display: flex; gap: 10px; margin-bottom: 4px; }
+.tl-left {
+  width: 44px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+}
+.tl-time {
+  font-size: 11px; font-weight: 700;
+  color: var(--weather-primary);
+  text-align: center; line-height: 1.3;
+  padding-top: 14px; white-space: pre-line;
+  transition: color 0.4s;
+}
+.tl-line { width: 1px; flex: 1; min-height: 16px; background: var(--border); margin-top: 2px; }
+.tl-card {
+  flex: 1;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 11px 13px 10px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.tl-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px;
+  background: var(--weather-primary);
+  border-radius: 3px;
+  transition: background 0.4s;
+}
+.tl-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.tl-activity {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13.5px; font-weight: 700;
+  line-height: 1.4; flex: 1;
+  letter-spacing: 0.02em;
+}
+.tl-badge {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 7px; border-radius: 3px;
+  white-space: nowrap; flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+.badge-all { background: var(--rust-light); color: var(--rust); }
+.badge-a { background: #E4EEE4; color: #2E6B2E; }
+.badge-b { background: #E3EDF8; color: #2B5C8A; }
+.badge-all-teal { background: var(--teal-light); color: var(--teal); }
+.tl-note { font-size: 11.5px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+
+/* 膠帶風格標籤 */
+.tape-chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 7px; }
+.tape-chip {
+  font-size: 10px; padding: 2px 8px;
+  background: var(--gold-light);
+  border: 1px solid rgba(196,146,58,0.25);
+  border-radius: 2px;
+  color: var(--ink-mid);
+  letter-spacing: 0.03em;
+  transform: rotate(-0.8deg);
+  display: inline-block;
+  box-shadow: 1px 1px 0 rgba(196,146,58,0.15);
+}
+.tape-chip:nth-child(2n) { transform: rotate(0.6deg); background: var(--cream-dark); border-color: var(--border); }
+.tape-chip:nth-child(3n) { transform: rotate(-0.4deg); background: #EEF3EE; border-color: rgba(90,122,90,0.2); }
+
+/* Google Maps 按鈕 */
+.map-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 8px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px; font-weight: 500;
+  color: var(--ink-mid);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.map-btn:hover { background: var(--cream-dark); }
+
+/* 折疊詳細資訊 */
+.tl-detail {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.tl-detail.open { display: block; }
+.detail-row {
+  display: flex; gap: 8px;
+  padding: 4px 0;
+  font-size: 11.5px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: var(--ink-light); flex-shrink: 0; width: 60px; }
+.detail-val { color: var(--ink-mid); line-height: 1.5; }
+.toggle-detail {
+  display: inline-flex; align-items: center; gap: 3px;
+  margin-top: 7px;
+  font-size: 10.5px; color: var(--ink-light);
+  cursor: pointer; letter-spacing: 0.05em;
+  background: none; border: none;
+  font-family: 'Noto Sans TC', sans-serif;
+  padding: 0;
+}
+.toggle-detail:hover { color: var(--ink-mid); }
+.toggle-arrow { transition: transform 0.2s; display: inline-block; }
+.toggle-detail.open .toggle-arrow { transform: rotate(180deg); }
+
+/* ══════════ CALLOUT ══════════ */
+.callout {
+  background: var(--gold-light);
+  border: 1px dashed rgba(196,146,58,0.35);
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
+  font-size: 11.5px; color: var(--ink-mid);
+  margin-top: 8px; line-height: 1.6;
+}
+.callout.teal { background: var(--teal-light); border-color: rgba(46,122,107,0.25); }
+.callout-title { font-weight: 700; font-size: 11px; margin-bottom: 2px; color: var(--gold); letter-spacing: 0.05em; }
+.callout-title.teal { color: var(--teal); }
+
+/* ══════════ 收據風格費用 ══════════ */
+.receipt {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-top: 4px;
+  position: relative;
+}
+.receipt::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--cream) 0, var(--cream) 8px, white 8px, white 16px);
+}
+.receipt-header {
+  padding: 18px 16px 8px;
+  text-align: center;
+  border-bottom: 1px dashed var(--border);
+}
+.receipt-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 12px;
+  color: var(--ink-mid);
+  letter-spacing: 0.15em;
+}
+.receipt-row {
+  display: flex; justify-content: space-between;
+  padding: 7px 16px;
+  font-size: 12.5px;
+  border-bottom: 1px dotted var(--cream-dark);
+  font-family: 'Noto Serif TC', serif;
+}
+.receipt-row:last-of-type { border-bottom: none; }
+.receipt-label { color: var(--ink-mid); }
+.receipt-val { font-weight: 500; }
+.receipt-divider {
+  margin: 0 16px;
+  border: none;
+  border-top: 1px dashed var(--border);
+}
+.receipt-total {
+  display: flex; justify-content: space-between;
+  padding: 10px 16px 14px;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700; font-size: 14px;
+  color: var(--weather-primary);
+  transition: color 0.4s;
+}
+.receipt::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--cream) 0, var(--cream) 8px, white 8px, white 16px);
+}
+
+/* ══════════ 景點卡片 ══════════ */
+.spot-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+}
+.spot-header {
+  padding: 13px 14px 10px;
+  border-bottom: 1px solid var(--cream-dark);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.spot-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.spot-type {
+  font-size: 10px; color: var(--ink-light);
+  letter-spacing: 0.08em; margin-top: 2px;
+}
+.spot-expand { font-size: 18px; color: var(--ink-light); transition: transform 0.2s; }
+.spot-expand.open { transform: rotate(180deg); }
+.spot-body { display: none; padding: 12px 14px; }
+.spot-body.open { display: block; }
+.spot-row {
+  display: flex; gap: 8px;
+  padding: 5px 0;
+  font-size: 12px;
+  border-bottom: 1px solid var(--cream-dark);
+  line-height: 1.5;
+}
+.spot-row:last-child { border-bottom: none; }
+.spot-key { color: var(--ink-light); flex-shrink: 0; width: 62px; font-size: 11px; }
+.spot-val { color: var(--ink-mid); }
+.spot-desc {
+  font-size: 12px; color: var(--ink-mid);
+  line-height: 1.7; margin-bottom: 10px;
+  font-weight: 300; font-style: italic;
+  border-left: 2px solid var(--cream-mid);
+  padding-left: 10px;
+}
+.spot-tag {
+  display: inline-block;
+  font-size: 10px; padding: 2px 8px;
+  border-radius: 3px; margin: 2px 3px 2px 0;
+  font-weight: 500;
+}
+.tag-pet { background: var(--teal-light); color: var(--teal); }
+.tag-elder { background: var(--gold-light); color: var(--gold); }
+.tag-kid { background: #EEF0FF; color: #4A5CC8; }
+.tag-free { background: #F0F5EE; color: #3D7A3D; }
+.tag-sunny { background: var(--rust-light); color: var(--rust); }
+.tag-rainy { background: var(--teal-light); color: var(--teal); }
+.spot-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.spot-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 11px;
+  border-radius: 4px;
+  font-size: 11.5px; font-weight: 500;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  color: var(--ink-mid);
+  transition: all 0.15s;
+}
+.spot-link:hover { background: var(--cream-dark); }
+.spot-link.primary { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+/* 族群注意事項 */
+.group-notes { margin-top: 10px; }
+.group-note {
+  background: var(--cream);
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
+  margin-bottom: 6px;
+  font-size: 11.5px; line-height: 1.6;
+}
+.group-note-title { font-weight: 700; font-size: 11px; margin-bottom: 3px; color: var(--ink); }
+
+/* 狗狗時間表 */
+.dog-table {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.dog-head {
+  display: grid; grid-template-columns: 70px 1fr 75px;
+  background: var(--ink); color: var(--cream);
+  font-size: 11px; letter-spacing: 0.08em;
+  padding: 8px 12px; font-weight: 500;
+}
+.dog-row {
+  display: grid; grid-template-columns: 70px 1fr 75px;
+  font-size: 12px; padding: 7px 12px;
+  border-bottom: 1px solid var(--cream-dark);
+  color: var(--ink-mid); line-height: 1.4;
+}
+.dog-row:nth-child(even) { background: var(--cream); }
+.dog-row:last-child { border-bottom: none; font-weight: 700; color: var(--ink); background: var(--gold-light); }
+.dog-time { color: var(--ink-light); font-size: 11px; }
+
+/* ══════════ 餐廳卡片 ══════════ */
+.resto-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 15px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  position: relative; overflow: hidden;
+}
+.resto-card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 0; height: 0;
+  border-top: 28px solid var(--rust-light);
+  border-left: 28px solid transparent;
+}
+.resto-card.backup::after { border-top-color: var(--teal-light); }
+.resto-type { font-size: 10px; letter-spacing: 0.1em; color: var(--rust); margin-bottom: 4px; font-weight: 500; }
+.resto-type.backup { color: var(--teal); }
+.resto-name { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.02em; }
+.resto-info { font-size: 12px; color: var(--ink-mid); line-height: 1.9; font-weight: 300; }
+.resto-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.resto-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 13px;
+  border-radius: 5px; font-size: 12px; font-weight: 500;
+  cursor: pointer; text-decoration: none;
+  border: 1px solid var(--border);
+  background: var(--cream); color: var(--ink-mid);
+  font-family: 'Noto Sans TC', sans-serif;
+  transition: all 0.15s;
+}
+.resto-btn:hover { background: var(--cream-dark); }
+.resto-btn.call { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.resto-btn.call:hover { background: #3D3020; }
+
+/* ══════════ 注意事項 ══════════ */
+.notice-group {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+}
+.notice-header {
+  padding: 12px 14px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.05em;
+  display: flex; align-items: center; gap: 8px;
+}
+.notice-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 14px;
+  font-size: 12.5px; line-height: 1.6;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.notice-item:last-child { border-bottom: none; }
+.notice-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--ink-light);
+  flex-shrink: 0; margin-top: 7px;
+}
+.notice-dot.rust { background: var(--rust); }
+.notice-dot.teal { background: var(--teal); }
+.notice-dot.gold { background: var(--gold); }
+.notice-dot.blue { background: #4A6FA5; }
+
+/* ══════════ 確認清單 ══════════ */
+.check-group {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.check-period-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px; padding-bottom: 7px;
+  border-bottom: 1px dashed var(--border);
+}
+.check-period {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 12px; color: var(--teal);
+  letter-spacing: 0.08em;
+}
+.check-progress-text { font-size: 11px; color: var(--ink-light); }
+.check-progress-bar {
+  height: 3px; background: var(--cream-dark);
+  border-radius: 3px; margin-bottom: 10px;
+  overflow: hidden;
+}
+.check-progress-fill {
+  height: 100%; background: var(--teal);
+  border-radius: 3px; transition: width 0.3s ease;
+}
+.check-item {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 5px 0; font-size: 12.5px; line-height: 1.5;
+  cursor: pointer;
+}
+.checkbox {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--ink-light);
+  border-radius: 3px; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  background: white; transition: all 0.15s;
+}
+.checkbox.checked { background: var(--teal); border-color: var(--teal); }
+.checkbox.checked::after { content: '✓'; color: white; font-size: 9px; font-weight: 700; }
+.check-item.done .check-text { text-decoration: line-through; color: var(--ink-light); }
+
+/* ══════════ 緊急頁面 ══════════ */
+.emerg-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+}
+.emerg-card-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 12px; letter-spacing: 0.08em;
+  color: var(--ink-mid);
+  padding: 9px 14px;
+  background: var(--cream-dark);
+  border-bottom: 1px solid var(--border);
+}
+.emerg-row {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 8px 14px;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.emerg-row:last-child { border-bottom: none; }
+.emerg-label { color: var(--ink-mid); font-weight: 300; }
+.emerg-val { font-weight: 700; color: #C0392B; }
+.emerg-val.neutral { color: var(--ink); font-weight: 500; }
+
+/* 突發備案 */
+.case-item {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--cream-dark);
+  font-size: 12px; line-height: 1.6;
+}
+.case-item:last-child { border-bottom: none; }
+.case-q { font-weight: 700; color: var(--rust); margin-bottom: 3px; }
+.case-a { color: var(--ink-mid); font-weight: 300; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header" id="mainHeader">
+  <div class="header-bg-circle"></div>
+  <div class="header-bg-circle"></div>
+  <div class="header-stamp" id="headerStamp">
+    <div class="stamp-text" id="stampText">大溪<br>DAXI<br>2026</div>
+  </div>
+  <div class="header-date" id="headerDate">☀️ 晴天行程</div>
+  <div class="header-title">大溪 · DAXI</div>
+  <div class="header-main">2026.06.20　週六<br>三代 × 一臘腸</div>
+  <div class="header-tags">
+    <span class="tag">👴 A家庭</span>
+    <span class="tag">👨‍👩‍👧 B家庭</span>
+    <span class="tag">🐾 一臘腸</span>
+    <span class="tag">🍑 大溪一日遊</span>
+  </div>
+</div>
+
+<!-- 晴雨 TAB（僅行程頁顯示） -->
+<div class="weather-tab-wrapper visible" id="weatherTabWrapper">
+  <div class="weather-tabs">
+    <button class="weather-btn active" id="sunnyBtn" onclick="switchWeather('sunny')">☀️ 晴天行程</button>
+    <button class="weather-btn" id="rainyBtn" onclick="switchWeather('rainy')">🌧️ 雨天備案</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="switchPage('itinerary')" id="nav-itinerary">
+    <span class="nav-icon">🗺️</span>行程
+  </button>
+  <button class="nav-btn" onclick="switchPage('spots')" id="nav-spots">
+    <span class="nav-icon">📍</span>景點
+  </button>
+  <button class="nav-btn" onclick="switchPage('restaurants')" id="nav-restaurants">
+    <span class="nav-icon">🍽️</span>餐廳
+  </button>
+  <button class="nav-btn" onclick="switchPage('notes')" id="nav-notes">
+    <span class="nav-icon">📋</span>注意
+  </button>
+  <button class="nav-btn" onclick="switchPage('checklist')" id="nav-checklist">
+    <span class="nav-icon">✅</span>清單
+  </button>
+  <button class="nav-btn" onclick="switchPage('emergency')" id="nav-emergency">
+    <span class="nav-icon">🚨</span>緊急
+  </button>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE：行程
+══════════════════════════════ -->
+<div class="page active" id="page-itinerary">
+
+  <!-- 晴天 -->
+  <div class="weather-content active" id="sunny">
+    <div class="route-banner">
+      <span class="route-label">晴天動線</span>
+      南口停車場 <span class="route-arrow">→</span> 步道群 <span class="route-arrow">→</span> 豆麥私房菜 <span class="route-arrow">→</span> 花開了農園 <span class="route-arrow">→</span> 老地方客家菜 <span class="route-arrow">→</span> 返程
+    </div>
+
+    <div class="sec-title">A 家庭時間軸</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">07:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">永和出發</div><span class="tl-badge badge-a">A家庭</span></div>
+        <div class="tl-note">出發前 30 分鐘給狗狗暈車藥</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 出發</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">08:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">抵達南口停車場</div><span class="tl-badge badge-a">A家庭</span></div>
+        <div class="tl-note">百吉隧道南口附近，龍形橋周邊停車</div>
+        <div class="tape-chips"><span class="tape-chip">🅿️ 停車</span></div>
+        <a class="map-btn" href="https://maps.app.goo.gl/example" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">08:15</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">舊百吉隧道（南→北）</div><span class="tl-badge badge-a">A家庭</span></div>
+        <div class="tl-note">全長 343 公尺，約 15 分鐘｜狗狗可同行</div>
+        <div class="tape-chips"><span class="tape-chip">🌿 景點</span><span class="tape-chip">🐾 遛狗</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">08:30</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">總督府步道（北→南）</div><span class="tl-badge badge-a">A家庭</span></div>
+        <div class="tl-note">從北口出發，單程約 30 分鐘，走到南口方向出口</div>
+        <div class="tape-chips"><span class="tape-chip">🌿 古道</span><span class="tape-chip">🐾 遛狗</span></div>
+        <div class="callout">
+          <div class="callout-title">⚠️ 注意</div>
+          前段有拉繩陡坡，狗狗需要抱著通過；蚊蟲多，出發前噴好防蚊液
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">09:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">走到百吉林蔭步道南口等B家庭</div><span class="tl-badge badge-a">A家庭</span></div>
+        <div class="tl-note">總督府步道南口到百吉林蔭步道南口步行約 5 分鐘｜讓狗狗在草地休息補水</div>
+        <div class="tape-chips"><span class="tape-chip">⏳ 等候</span></div>
+      </div>
+    </div>
+
+    <div class="sec-title">B 家庭時間軸</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">08:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">永和出發</div><span class="tl-badge badge-b">B家庭</span></div>
+        <div class="tl-note">帶小孩出發，上下車準備時間較長</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 出發</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">09:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">抵達南口停車場，整裝準備</div><span class="tl-badge badge-b">B家庭</span></div>
+        <div class="tl-note">上下車整裝，2歲、5歲做好步行準備</div>
+        <div class="tape-chips"><span class="tape-chip">🅿️ 停車</span></div>
+      </div>
+    </div>
+
+    <div class="sec-title">兩家庭集合後</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">09:30</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">兩家庭集合，一起走百吉林蔭步道全程</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">全程柏油路平坦，全長約 3 公里，步行約 50 分鐘｜全程林蔭遮蔽，6 月早上涼爽不曬</div>
+        <div class="tape-chips"><span class="tape-chip">🌿 步道</span><span class="tape-chip">🐾 遛狗</span><span class="tape-chip">👨‍👩‍👧 親子</span></div>
+        <a class="map-btn" href="https://hiking.biji.co/index.php?q=trail&act=detail&id=519" target="_blank">🗺️ 健行筆記路線</a>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">10:20</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">舊百吉隧道（北→南）回停車場</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">返回南口停車場，約 15 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">🌿 景點</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">10:35</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">兩家庭整裝，出發豆麥私房菜</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">車程約 15 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">11:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">豆麥私房菜午餐</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">台式合菜，湖景環境，已預訂安靜座位</div>
+        <div class="tape-chips"><span class="tape-chip">🍽️ 午餐</span></div>
+        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">12:30</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">前往花開了農園午休</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">車程約 5 分鐘，同在復興路二段</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">12:45</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">花開了農園午休</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">2歲午睡、長輩午休、狗狗草地休息｜至少 45 分鐘不可壓縮</div>
+        <div class="tape-chips"><span class="tape-chip">💤 午休</span></div>
+        <div class="callout">
+          <div class="callout-title">A家庭媽媽（體力好長輩）備案</div>
+          若不想在農園等待，可前往附近步道散步（待確認）
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">13:30</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">花開了農園下午遊樂</div><span class="tl-badge badge-b">B家庭孩子</span></div>
+        <div class="tl-note">漂漂河戲水、F1 賽車、小火車、夢幻城堡｜2歲視睡醒狀況加入</div>
+        <div class="tape-chips"><span class="tape-chip">🎠 農園</span><span class="tape-chip">💦 玩水</span><span class="tape-chip">🐾 遛狗</span></div>
+        <div class="callout">
+          <div class="callout-title">長輩同步</div>
+          在涼亭乘蔭休息，不強迫參與設施
+        </div>
+        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">17:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">離開花開了農園</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">前往老地方客家菜，車程約 15 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">17:30</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">老地方客家菜晚餐</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">道地客家料理，台式口味，已網路訂位</div>
+        <div class="tape-chips"><span class="tape-chip">🍽️ 晚餐</span></div>
+        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time">19:00</div><div class="tl-line"></div></div>
+      <div class="tl-card">
+        <div class="tl-top"><div class="tl-activity">返程出發</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-note">預留週六塞車緩衝，約 20:30 返抵永和</div>
+        <div class="tape-chips"><span class="tape-chip">🏠 返程</span></div>
+      </div>
+    </div>
+
+    <!-- 晴天費用收據 -->
+    <div class="sec-title">費用摘要</div>
+    <div class="receipt">
+      <div class="receipt-header"><div class="receipt-title">☀️ 晴天行程　費用小計</div></div>
+      <div class="receipt-row"><span class="receipt-label">百吉步道群</span><span class="receipt-val">免費</span></div>
+      <div class="receipt-row"><span class="receipt-label">豆麥私房菜午餐</span><span class="receipt-val">400～600 元</span></div>
+      <div class="receipt-row"><span class="receipt-label">花開了農園設施</span><span class="receipt-val">銅板價 100～200 元</span></div>
+      <div class="receipt-row"><span class="receipt-label">老地方客家菜晚餐</span><span class="receipt-val">400～600 元</span></div>
+      <div class="receipt-row"><span class="receipt-label">停車費</span><span class="receipt-val">免費</span></div>
+      <hr class="receipt-divider">
+      <div class="receipt-total"><span>每人預估</span><span>900～1,400 元 ✅</span></div>
+    </div>
+  </div>
+
+  <!-- 雨天 -->
+  <div class="weather-content" id="rainy">
+    <div class="route-banner" style="border-left-color:var(--teal)">
+      <span class="route-label" style="color:var(--teal)">雨天動線</span>
+      大溪老茶廠 <span class="route-arrow">→</span> 豆麥私房菜 <span class="route-arrow">→</span> 花開了農園（室內）<span class="route-arrow">→</span> 老地方客家菜 <span class="route-arrow">→</span> 返程
+    </div>
+
+    <div class="callout teal" style="margin-bottom:14px">
+      <div class="callout-title teal">🌧️ 雨天出發時間</div>
+      兩家庭統一 08:00 從永和出發，老茶廠 09:30 才開門
+    </div>
+
+    <div class="sec-title">雨天時間軸</div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">08:00</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">兩家庭永和出發</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">A家庭＋B家庭同時出發，車程約 75 分鐘（含塞車緩衝）</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 出發</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">09:15</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">抵達大溪老茶廠</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">免費停車場，開門前稍早抵達</div>
+        <div class="tape-chips"><span class="tape-chip">🅿️ 停車</span></div>
+        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">09:30</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">大溪老茶廠參觀</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">一樓展售區、茶書屋、製茶區、靜水池｜門票 150 元折抵 100 元消費</div>
+        <div class="tape-chips"><span class="tape-chip">🍵 文化</span><span class="tape-chip">🏛️ 室內</span></div>
+        <div class="callout teal">
+          <div class="callout-title teal">⚠️ 寵物注意</div>
+          狗狗需裝入寵物袋，已備妥 ✅｜不參加 11:00 導覽，避免趕不上午餐
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">10:45</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">出發豆麥私房菜</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">車程約 15 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">11:00</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">豆麥私房菜午餐</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">台式合菜，湖景環境</div>
+        <div class="tape-chips"><span class="tape-chip">🍽️ 午餐</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">12:30</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">前往花開了農園午休</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">車程約 5 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">12:45</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">花開了農園午休</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">2歲午睡、長輩午休｜至少 45 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">💤 午休</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">13:30</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">花開了農園室內遊樂</div><span class="tl-badge badge-b">B家庭孩子</span></div>
+        <div class="tl-note">小火車、F1 賽車、夢幻城堡｜雨天戶外玩水區關閉</div>
+        <div class="tape-chips"><span class="tape-chip">🎠 農園</span><span class="tape-chip">🏠 室內</span></div>
+        <div class="callout teal">
+          <div class="callout-title teal">長輩同步</div>
+          室內休息區乘涼
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">17:00</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">離開花開了，前往老地方客家菜</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">車程約 15 分鐘，17:30 晚餐</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span><span class="tape-chip">🍽️ 晚餐</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">19:00</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">返程出發</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">約 20:30 返抵永和</div>
+        <div class="tape-chips"><span class="tape-chip">🏠 返程</span></div>
+      </div>
+    </div>
+
+    <div class="sec-title">費用摘要</div>
+    <div class="receipt">
+      <div class="receipt-header"><div class="receipt-title">🌧️ 雨天行程　費用小計</div></div>
+      <div class="receipt-row"><span class="receipt-label">大溪老茶廠門票</span><span class="receipt-val">150 元（折抵 100）</span></div>
+      <div class="receipt-row"><span class="receipt-label">豆麥私房菜午餐</span><span class="receipt-val">400～600 元</span></div>
+      <div class="receipt-row"><span class="receipt-label">花開了農園設施</span><span class="receipt-val">銅板價 100 元</span></div>
+      <div class="receipt-row"><span class="receipt-label">老地方客家菜晚餐</span><span class="receipt-val">400～600 元</span></div>
+      <div class="receipt-row"><span class="receipt-label">停車費</span><span class="receipt-val">免費</span></div>
+      <hr class="receipt-divider">
+      <div class="receipt-total" style="color:var(--teal)"><span>每人預估</span><span>1,000～1,450 元 ✅</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE：景點
+══════════════════════════════ -->
+<div class="page" id="page-spots">
+
+  <div class="sec-title">☀️ 晴天景點</div>
+
+  <!-- 百吉林蔭步道 -->
+  <div class="spot-card">
+    <div class="spot-header" onclick="toggleSpot(this)">
+      <div><div class="spot-name">百吉林蔭步道</div><div class="spot-type">BAIJI FOREST TRAIL</div></div>
+      <div class="spot-expand">▾</div>
+    </div>
+    <div class="spot-body">
+      <p class="spot-desc">昔日軍事管制區，全程柏油路平坦無坡，林蔭濃密，6月早上涼爽舒適，是大溪最適合全齡健行的步道。</p>
+      <div>
+        <span class="spot-tag tag-pet">🐾 寵物可同行</span>
+        <span class="spot-tag tag-elder">👴 長輩友善</span>
+        <span class="spot-tag tag-kid">👶 親子適合</span>
+        <span class="spot-tag tag-free">免費</span>
+        <span class="spot-tag tag-sunny">☀️ 晴天</span>
+      </div>
+      <div style="height:10px"></div>
+      <div class="spot-row"><span class="spot-key">全長</span><span class="spot-val">約 3 公里，步行約 50 分鐘</span></div>
+      <div class="spot-row"><span class="spot-key">路面</span><span class="spot-val">全程柏油路，無階梯，推車可通行</span></div>
+      <div class="spot-row"><span class="spot-key">停車</span><span class="spot-val">百吉隧道南口附近路邊，龍形橋周邊</span></div>
+      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">✅ 可同行，需牽繩</span></div>
+      <div class="spot-row"><span class="spot-key">長輩</span><span class="spot-val">全程平坦，體力有限長輩也可輕鬆完成</span></div>
+      <div class="spot-row"><span class="spot-key">孩子</span><span class="spot-val">2歲可推車或抱，5歲自走完全沒問題</span></div>
+      <div class="spot-row"><span class="spot-key">注意</span><span class="spot-val">夏季蚊蟲較多，建議防蚊液；假日人潮多</span></div>
+      <div class="spot-links">
+        <a class="spot-link primary" href="https://hiking.biji.co/index.php?q=trail&act=detail&id=519" target="_blank">🗺️ 健行筆記路線圖</a>
+        <a class="spot-link" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 舊百吉隧道 -->
+  <div class="spot-card">
+    <div class="spot-header" onclick="toggleSpot(this)">
+      <div><div class="spot-name">舊百吉隧道</div><div class="spot-type">OLD BAIJI TUNNEL</div></div>
+      <div class="spot-expand">▾</div>
+    </div>
+    <div class="spot-body">
+      <p class="spot-desc">日治時期建造的防空疏散隧道，全長 343 公尺，現改為觀光步道，天然涼爽，夏日最佳避暑選擇。</p>
+      <div>
+        <span class="spot-tag tag-pet">🐾 寵物可同行</span>
+        <span class="spot-tag tag-elder">👴 平坦好走</span>
+        <span class="spot-tag tag-kid">👶 孩子喜愛</span>
+        <span class="spot-tag tag-free">免費</span>
+      </div>
+      <div style="height:10px"></div>
+      <div class="spot-row"><span class="spot-key">全長</span><span class="spot-val">343 公尺，來回約 15 分鐘</span></div>
+      <div class="spot-row"><span class="spot-key">特色</span><span class="spot-val">隧道內天然涼爽，約 20°C，夏日避暑最佳</span></div>
+      <div class="spot-row"><span class="spot-key">位置</span><span class="spot-val">百吉林蔭步道北口旁，兩步道可串聯</span></div>
+      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">✅ 可同行，需牽繩</span></div>
+      <div class="spot-links">
+        <a class="spot-link" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 總督府步道 -->
+  <div class="spot-card">
+    <div class="spot-header" onclick="toggleSpot(this)">
+      <div><div class="spot-name">總督府步道</div><div class="spot-type">GOVERNOR TRAIL（A家庭）</div></div>
+      <div class="spot-expand">▾</div>
+    </div>
+    <div class="spot-body">
+      <p class="spot-desc">又稱湳仔溝古道，保持原始路面，從百吉隧道北口出發，竹林幽徑、蟬鳴鳥叫，適合有爬山習慣的長輩挑戰。</p>
+      <div>
+        <span class="spot-tag tag-pet">🐾 需抱過陡坡</span>
+        <span class="spot-tag tag-elder">👴 體力好長輩</span>
+        <span class="spot-tag tag-free">免費</span>
+        <span class="spot-tag tag-sunny">☀️ A家庭專屬</span>
+      </div>
+      <div style="height:10px"></div>
+      <div class="spot-row"><span class="spot-key">全長</span><span class="spot-val">約 1 公里，單程約 30 分鐘</span></div>
+      <div class="spot-row"><span class="spot-key">難度</span><span class="spot-val">低～中，前段有拉繩陡坡需注意腳步</span></div>
+      <div class="spot-row"><span class="spot-key">起點</span><span class="spot-val">舊百吉隧道北口（A家庭走隧道後直接進入）</span></div>
+      <div class="spot-row"><span class="spot-key">終點</span><span class="spot-val">承恩路南口，步行 5 分鐘可到百吉林蔭步道南口</span></div>
+      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">⚠️ 陡坡段需抱著臘腸犬通過</span></div>
+      <div class="spot-row"><span class="spot-key">注意</span><span class="spot-val">蚊蠅蜘蛛網多，務必噴防蚊液並備登山杖</span></div>
+      <div class="spot-links">
+        <a class="spot-link primary" href="https://hiking.biji.co/index.php?q=trail&act=detail&id=934" target="_blank">🗺️ 健行筆記路線圖</a>
+        <a class="spot-link" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 花開了農園 -->
+  <div class="spot-card">
+    <div class="spot-header" onclick="toggleSpot(this)">
+      <div><div class="spot-name">花開了休閒農園</div><div class="spot-type">HUAKAILE FARM</div></div>
+      <div class="spot-expand">▾</div>
+    </div>
+    <div class="spot-body">
+      <p class="spot-desc">免門票免停車的親子農園，有漂漂河、F1 賽車、小火車、夢幻城堡，6月玩水最受孩子歡迎，雨天室內設施照常開放。</p>
+      <div>
+        <span class="spot-tag tag-pet">🐾 ✅ 已確認可入場</span>
+        <span class="spot-tag tag-kid">👶 親子首選</span>
+        <span class="spot-tag tag-free">免門票</span>
+      </div>
+      <div style="height:10px"></div>
+      <div class="spot-row"><span class="spot-key">地址</span><span class="spot-val">桃園市大溪區復興路二段 329 號</span></div>
+      <div class="spot-row"><span class="spot-key">電話</span><span class="spot-val">03-387-9195</span></div>
+      <div class="spot-row"><span class="spot-key">營業</span><span class="spot-val">09:30～19:30（全年無休）</span></div>
+      <div class="spot-row"><span class="spot-key">停車</span><span class="spot-val">免費停車場</span></div>
+      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">✅ 已確認可帶狗入場</span></div>
+      <div class="spot-row"><span class="spot-key">雨天</span><span class="spot-val">戶外玩水區關閉，室內設施（小火車、賽車、城堡）照常</span></div>
+      <div class="spot-row"><span class="spot-key">注意</span><span class="spot-val">假日 11:00 後無法訂位，本次下午前往無需訂位</span></div>
+      <div class="spot-links">
+        <a class="spot-link primary" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+
+      <div class="group-notes">
+        <div class="group-note">
+          <div class="group-note-title">👴 長輩注意</div>
+          有涼亭及室內休息區，不需要參與遊樂設施，坐著看孩子玩即可
+        </div>
+        <div class="group-note">
+          <div class="group-note-title">👶 孩子注意</div>
+          玩水區需備泳裝＋換洗衣物；2歲設施較少，建議有大人陪伴；部分設施為銅板價投幣
+        </div>
+        <div class="group-note">
+          <div class="group-note-title">🐾 狗狗注意</div>
+          可在草地牽繩活動，注意農場蚊蟲較多
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">🌧️ 雨天景點</div>
+
+  <!-- 大溪老茶廠 -->
+  <div class="spot-card">
+    <div class="spot-header" onclick="toggleSpot(this)">
+      <div><div class="spot-name">大溪老茶廠</div><div class="spot-type">DAXI OLD TEA FACTORY</div></div>
+      <div class="spot-expand">▾</div>
+    </div>
+    <div class="spot-body">
+      <p class="spot-desc">日治時期建造的製茶工廠，全室內參觀，有茶書屋、製茶機器展示、靜水池，長輩最喜歡的歷史文化氛圍，雨天最佳備案。</p>
+      <div>
+        <span class="spot-tag tag-pet">🐾 需寵物袋</span>
+        <span class="spot-tag tag-elder">👴 長輩最愛</span>
+        <span class="spot-tag tag-kid">👶 5歲尚可</span>
+        <span class="spot-tag tag-rainy">🌧️ 雨天首選</span>
+      </div>
+      <div style="height:10px"></div>
+      <div class="spot-row"><span class="spot-key">地址</span><span class="spot-val">桃園市大溪區員林路一段</span></div>
+      <div class="spot-row"><span class="spot-key">電話</span><span class="spot-val">03-388-0835</span></div>
+      <div class="spot-row"><span class="spot-key">營業</span><span class="spot-val">09:30～17:00（全年無休）</span></div>
+      <div class="spot-row"><span class="spot-key">門票</span><span class="spot-val">150 元，可折抵 100 元消費；120 公分以下免費</span></div>
+      <div class="spot-row"><span class="spot-key">停車</span><span class="spot-val">免費停車場</span></div>
+      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">⚠️ 需裝入寵物袋，已備妥 ✅</span></div>
+      <div class="spot-row"><span class="spot-key">導覽</span><span class="spot-val">11:00、14:30，各 50 分鐘，免費｜本次 09:30 參觀，不參加 11:00 導覽</span></div>
+      <div class="spot-links">
+        <a class="spot-link primary" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+      </div>
+
+      <div class="group-notes">
+        <div class="group-note">
+          <div class="group-note-title">👴 長輩注意</div>
+          全室內冷氣，歷史文化氛圍濃，長輩最喜歡；二樓無冷氣，夏天較熱，可選擇只參觀一樓
+        </div>
+        <div class="group-note">
+          <div class="group-note-title">👶 孩子注意</div>
+          5歲可引導觀察古老製茶機器；2歲對展覽興趣有限，備好安撫玩具
+        </div>
+        <div class="group-note">
+          <div class="group-note-title">🐾 狗狗注意</div>
+          全程裝入寵物袋，提前確認寵物袋舒適度
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">🐾 狗狗全日時間表</div>
+  <div class="dog-table">
+    <div class="dog-head"><div>時間</div><div>活動</div><div>時間</div></div>
+    <div class="dog-row"><div class="dog-time">06:30</div><div>出發前永和遛狗</div><div>15 分鐘</div></div>
+    <div class="dog-row"><div class="dog-time">08:15</div><div>舊百吉隧道散步 ☀️</div><div>15 分鐘</div></div>
+    <div class="dog-row"><div class="dog-time">08:30</div><div>總督府步道 ☀️</div><div>30 分鐘</div></div>
+    <div class="dog-row"><div class="dog-time">09:30</div><div>百吉林蔭步道全程 ☀️</div><div>50 分鐘</div></div>
+    <div class="dog-row"><div class="dog-time">12:45</div><div>花開了農園草地午休</div><div>20 分鐘</div></div>
+    <div class="dog-row"><div class="dog-time">13:30</div><div>農園草地活動</div><div>30 分鐘</div></div>
+    <div class="dog-row"><div class="dog-time">離場前</div><div>草地如廁</div><div>10 分鐘</div></div>
+    <div class="dog-row"><div></div><div>☀️ 晴天合計</div><div>約 170 分鐘 ✅</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE：餐廳
+══════════════════════════════ -->
+<div class="page" id="page-restaurants">
+  <div style="padding-top:6px">
+
+    <div class="sec-title">午餐</div>
+
+    <div class="resto-card">
+      <div class="resto-type">午餐｜晴天 ＆ 雨天</div>
+      <div class="resto-name">豆麥私房菜</div>
+      <div class="resto-info">
+        📍 桃園市大溪區復興路二段 650 號<br>
+        🕐 10:00～20:00<br>
+        🐾 寵物 ✅ 已確認可入場<br>
+        🅿️ 停車場（免費）<br>
+        台式合菜，湖景環境，提前預訂安靜座位<br>
+        📌 菜單連結：待補充
+      </div>
+      <div class="resto-actions">
+        <a class="resto-btn call" href="tel:033825716">📞 03-382-5716</a>
+        <a class="resto-btn" href="https://maps.app.goo.gl/" target="_blank">📍 導航</a>
+      </div>
+    </div>
+
+    <div class="sec-title">晚餐</div>
+
+    <div class="resto-card">
+      <div class="resto-type">晚餐</div>
+      <div class="resto-name">老地方客家菜</div>
+      <div class="resto-info">
+        📍 桃園市大溪區（詳見 Google Maps）<br>
+        🕐 請出發前確認晚餐營業時間<br>
+        🐾 寵物 ✅ 已確認可入場<br>
+        🅿️ 停車場已確認位置<br>
+        道地客家料理，台式口味，網路訂位<br>
+        📌 菜單連結：待補充
+      </div>
+      <div class="resto-actions">
+        <a class="resto-btn call" href="tel:033906863">📞 03-390-6863</a>
+        <a class="resto-btn" href="https://maps.app.goo.gl/ECiuqq1iUteBbMiM6" target="_blank">📍 停車場導航</a>
+        <a class="resto-btn" href="https://maps.app.goo.gl/" target="_blank">🍽️ 餐廳導航</a>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:4px">
+      <div class="callout-title">⚠️ 訂位提醒</div>
+      兩間餐廳均需出發前兩週電話或網路預訂，告知帶狗、人數與需要安靜座位
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE：注意事項
+══════════════════════════════ -->
+<div class="page" id="page-notes">
+  <div style="padding-top:6px">
+
+    <!-- 長輩 -->
+    <div class="notice-group">
+      <div class="notice-header">👴 長輩注意事項</div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>出發前確認長輩日常藥物已備妥，並多備 1～2 天份量</span></div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>備好長輩慣用的舒適步行鞋，步道全程柏油路但仍需止滑</span></div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>午休時間（12:45～13:30）不可壓縮，長輩體力管理最關鍵</span></div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>步道過程中體力不支時，可隨時在涼亭休息，不需強行走完</span></div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>農園下午若長輩不想待，可前往附近步道散步（A家庭媽媽備案待確認）</span></div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>舅舅（B家庭長輩）體力有限，花開了農園有涼亭及室內休息區可隨時休息</span></div>
+    </div>
+
+    <!-- 孩子 -->
+    <div class="notice-group">
+      <div class="notice-header">👶 孩子注意事項</div>
+      <div class="notice-item"><div class="notice-dot blue"></div><span>備好泳裝＋換洗衣物（花開了農園漂漂河玩水用）</span></div>
+      <div class="notice-item"><div class="notice-dot blue"></div><span>2歲午睡時間優先，餐廳角落或花開了農園室內均可安排</span></div>
+      <div class="notice-item"><div class="notice-dot blue"></div><span>步道全程：2歲由大人抱或備輕便背帶，5歲自走沒問題</span></div>
+      <div class="notice-item"><div class="notice-dot blue"></div><span>備好孩子常備藥（退燒藥、止瀉藥、過敏藥）</span></div>
+      <div class="notice-item"><div class="notice-dot blue"></div><span>在孩子衣物口袋放家長聯絡電話小卡，預防景區走失</span></div>
+      <div class="notice-item"><div class="notice-dot blue"></div><span>花開了農園部分設施為銅板價投幣，備好零錢</span></div>
+    </div>
+
+    <!-- 狗狗 -->
+    <div class="notice-group">
+      <div class="notice-header">🐾 狗狗注意事項</div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>出發前 30 分鐘服暈車藥，返程前同樣服用</span></div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>備妥寵物袋（老茶廠雨天必要、TINA廚房已移除行程）</span></div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>步道全程需牽繩，總督府步道陡坡段需抱著通過</span></div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>農場蚊蟲多，替狗狗準備防蚊噴劑（寵物專用）</span></div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>隨時備好水碗、狗糧、尿袋</span></div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>若暈車不適，抵達後在草地靜置休息 20 分鐘再行動</span></div>
+    </div>
+
+    <!-- 天氣 -->
+    <div class="notice-group">
+      <div class="notice-header">🌤️ 天氣注意事項</div>
+      <div class="notice-item"><div class="notice-dot gold"></div><span>6月下旬大溪午後雷陣雨機率高，出發前確認天氣預報</span></div>
+      <div class="notice-item"><div class="notice-dot gold"></div><span>步道時段（早上）林蔭遮蔽，但仍需全員備好防曬、帽子</span></div>
+      <div class="notice-item"><div class="notice-dot gold"></div><span>農場蚊蟲多，全員備好防蚊液（出發前噴好）</span></div>
+      <div class="notice-item"><div class="notice-dot gold"></div><span>若早上下雨 → 啟動雨天備案：大溪老茶廠取代步道</span></div>
+      <div class="notice-item"><div class="notice-dot gold"></div><span>若下午才下雨 → 花開了農園改玩室內設施，不影響整體行程</span></div>
+    </div>
+
+    <!-- 共用裝備 -->
+    <div class="notice-group">
+      <div class="notice-header">🎒 共用裝備清單</div>
+      <div class="notice-item"><div class="notice-dot"></div><span>防曬乳、帽子（全員）</span></div>
+      <div class="notice-item"><div class="notice-dot"></div><span>防蚊液（全員，農場必備）</span></div>
+      <div class="notice-item"><div class="notice-dot"></div><span>保溫水壺（全員）</span></div>
+      <div class="notice-item"><div class="notice-dot"></div><span>輕便雨衣或折疊傘（備用）</span></div>
+      <div class="notice-item"><div class="notice-dot"></div><span>行動電源（全員）</span></div>
+      <div class="notice-item"><div class="notice-dot"></div><span>零錢（農園銅板設施用）</span></div>
+      <div class="notice-item"><div class="notice-dot"></div><span>悠遊卡（部分停車場使用）</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE：確認清單
+══════════════════════════════ -->
+<div class="page" id="page-checklist">
+  <div style="padding-top:6px">
+
+    <div class="check-group" id="group-twoweeks">
+      <div class="check-period-header">
+        <span class="check-period">📅 出發前兩週</span>
+        <span class="check-progress-text" id="prog-twoweeks">0 / 4</span>
+      </div>
+      <div class="check-progress-bar"><div class="check-progress-fill" id="fill-twoweeks" style="width:0%"></div></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">電話預訂豆麥私房菜（03-382-5716），告知人數、帶狗、需安靜座位</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">網路訂位老地方客家菜，告知人數、帶狗</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">確認花開了農園週六寵物入場細節（03-387-9195）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">確認老地方客家菜詳細地址與停車資訊</span></div>
+    </div>
+
+    <div class="check-group" id="group-oneweek">
+      <div class="check-period-header">
+        <span class="check-period">📅 出發前一週</span>
+        <span class="check-progress-text" id="prog-oneweek">0 / 3</span>
+      </div>
+      <div class="check-progress-bar"><div class="check-progress-fill" id="fill-oneweek" style="width:0%"></div></div>
+      <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認A家庭媽媽下午步道備案（待確認）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認豆麥與老地方菜單連結（待補充）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認狗狗暈車藥備量足夠（來回各一次）</span></div>
+    </div>
+
+    <div class="check-group" id="group-dayb4">
+      <div class="check-period-header">
+        <span class="check-period">📅 出發前一天</span>
+        <span class="check-progress-text" id="prog-dayb4">0 / 5</span>
+      </div>
+      <div class="check-progress-bar"><div class="check-progress-fill" id="fill-dayb4" style="width:0%"></div></div>
+      <div class="check-item" onclick="toggleCheck(this,'dayb4')"><div class="checkbox"></div><span class="check-text">查詢大溪天氣預報，確認走晴天或雨天行程</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'dayb4')"><div class="checkbox"></div><span class="check-text">若雨天：改走大溪老茶廠，兩家庭統一 08:00 出發</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'dayb4')"><div class="checkbox"></div><span class="check-text">準備防蚊液（步道＋農場蚊蟲多，全員必備）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'dayb4')"><div class="checkbox"></div><span class="check-text">確認寵物袋備妥，臘腸犬可舒適放入</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'dayb4')"><div class="checkbox"></div><span class="check-text">孩子備好泳裝＋換洗衣物（花開了玩水用）</span></div>
+    </div>
+
+    <div class="check-group" id="group-morning">
+      <div class="check-period-header">
+        <span class="check-period">📅 當天早上</span>
+        <span class="check-progress-text" id="prog-morning">0 / 5</span>
+      </div>
+      <div class="check-progress-bar"><div class="check-progress-fill" id="fill-morning" style="width:0%"></div></div>
+      <div class="check-item" onclick="toggleCheck(this,'morning')"><div class="checkbox"></div><span class="check-text">A家庭 07:00 出發　／　B家庭 08:00 出發</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'morning')"><div class="checkbox"></div><span class="check-text">出發前 30 分鐘給狗狗暈車藥</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'morning')"><div class="checkbox"></div><span class="check-text">出發前帶狗狗在永和附近遛 15 分鐘</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'morning')"><div class="checkbox"></div><span class="check-text">全員備好防曬、帽子、水壺、防蚊液</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'morning')"><div class="checkbox"></div><span class="check-text">確認兩家庭聯絡方式暢通，抵達後互報位置</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE：緊急
+══════════════════════════════ -->
+<div class="page" id="page-emergency">
+  <div style="padding-top:6px">
+
+    <div class="emerg-card">
+      <div class="emerg-card-title">🚨 緊急聯絡</div>
+      <div class="emerg-row"><span class="emerg-label">救護車</span><span class="emerg-val"><a href="tel:119" style="color:inherit">📞 119</a></span></div>
+      <div class="emerg-row"><span class="emerg-label">警察</span><span class="emerg-val"><a href="tel:110" style="color:inherit">📞 110</a></span></div>
+      <div class="emerg-row"><span class="emerg-label">大溪警察分局</span><span class="emerg-val"><a href="tel:033882970" style="color:inherit">📞 03-388-2970</a></span></div>
+    </div>
+
+    <div class="emerg-card">
+      <div class="emerg-card-title">👴 長輩醫療資訊</div>
+      <div class="emerg-row"><span class="emerg-label">日常藥物</span><span class="emerg-val neutral">出發前確認已備妥</span></div>
+      <div class="emerg-row"><span class="emerg-label">附近醫院</span><span class="emerg-val neutral" style="text-align:right;font-size:12px">台北榮總大溪分院<br><a href="tel:033882007" style="color:var(--rust)">03-388-2007</a></span></div>
+    </div>
+
+    <div class="emerg-card">
+      <div class="emerg-card-title">🐾 寵物緊急資訊</div>
+      <div class="emerg-row"><span class="emerg-label">狗狗走失</span><span class="emerg-val neutral" style="text-align:right;font-size:12px">桃園市動物保護處<br><a href="tel:033325455" style="color:var(--rust)">03-332-5455</a></span></div>
+      <div class="emerg-row"><span class="emerg-label">24H 動物急診</span><span class="emerg-val neutral" style="font-size:12px">出發前確認大溪在地診所</span></div>
+    </div>
+
+    <div class="emerg-card">
+      <div class="emerg-card-title">🚑 突發狀況備案</div>
+      <div class="case-item">
+        <div class="case-q">週六嚴重塞車</div>
+        <div class="case-a">A家庭跳過總督府步道，直接走百吉林蔭步道；B家庭正常進行，兩家庭仍可在南口集合</div>
+      </div>
+      <div class="case-item">
+        <div class="case-q">長輩提早疲勞</div>
+        <div class="case-a">豆麥午餐後直接前往花開了農園休息，跳過下午活動直接等晚餐</div>
+      </div>
+      <div class="case-item">
+        <div class="case-q">2歲餐廳無法入睡</div>
+        <div class="case-a">照顧者抱至車上，車內開冷氣午睡，其他人繼續用餐</div>
+      </div>
+      <div class="case-item">
+        <div class="case-q">趕不上老地方客家菜</div>
+        <div class="case-a">提前電話告知餐廳延遲，或詢問是否可改時間</div>
+      </div>
+      <div class="case-item">
+        <div class="case-q">狗狗暈車不適</div>
+        <div class="case-a">抵達後停車場草地靜置休息 20 分鐘，確認狗狗狀態穩定後再行動</div>
+      </div>
+      <div class="case-item">
+        <div class="case-q">午後突然雷陣雨</div>
+        <div class="case-a">花開了農園改玩室內設施，不影響整體行程；若在步道時下雨，立即折返停車場</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ══ 天氣切換 ══
+let currentWeather = 'sunny';
+
+function switchWeather(w) {
+  currentWeather = w;
+  document.querySelectorAll('.weather-content').forEach(el => el.classList.remove('active'));
+  document.getElementById(w).classList.add('active');
+
+  const sunnyBtn = document.getElementById('sunnyBtn');
+  const rainyBtn = document.getElementById('rainyBtn');
+  sunnyBtn.classList.remove('active', 'rainy-active');
+  rainyBtn.classList.remove('active', 'rainy-active');
+
+  const header = document.getElementById('mainHeader');
+  const stamp = document.getElementById('headerStamp');
+  const stampText = document.getElementById('stampText');
+  const headerDate = document.getElementById('headerDate');
+  const body = document.body;
+
+  if (w === 'sunny') {
+    sunnyBtn.classList.add('active');
+    header.classList.remove('rainy');
+    body.classList.remove('rainy-theme');
+    headerDate.textContent = '☀️ 晴天行程';
+  } else {
+    rainyBtn.classList.add('active', 'rainy-active');
+    header.classList.add('rainy');
+    body.classList.add('rainy-theme');
+    headerDate.textContent = '🌧️ 雨天備案';
+  }
+}
+
+// ══ 頁面切換 ══
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nav-' + page).classList.add('active');
+
+  const wrapper = document.getElementById('weatherTabWrapper');
+  wrapper.classList.toggle('visible', page === 'itinerary');
+
+  window.scrollTo(0, 0);
+}
+
+// ══ 景點折疊 ══
+function toggleSpot(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.spot-expand');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// ══ 確認清單 + localStorage ══
+const GROUPS = {
+  twoweeks: 4,
+  oneweek: 3,
+  dayb4: 5,
+  morning: 5
+};
+
+function updateProgress(groupId) {
+  const group = document.getElementById('group-' + groupId);
+  const items = group.querySelectorAll('.check-item');
+  const done = group.querySelectorAll('.check-item.done').length;
+  const total = GROUPS[groupId];
+  document.getElementById('prog-' + groupId).textContent = done + ' / ' + total;
+  const pct = total > 0 ? (done / total * 100) : 0;
+  document.getElementById('fill-' + groupId).style.width = pct + '%';
+}
+
+function toggleCheck(item, groupId) {
+  const cb = item.querySelector('.checkbox');
+  cb.classList.toggle('checked');
+  item.classList.toggle('done');
+  saveChecklist();
+  updateProgress(groupId);
+}
+
+function saveChecklist() {
+  try {
+    const state = {};
+    document.querySelectorAll('.check-item').forEach((item, i) => {
+      state['check_' + i] = item.classList.contains('done');
+    });
+    localStorage.setItem('daxi_checklist_2026', JSON.stringify(state));
+  } catch(e) {}
+}
+
+function loadChecklist() {
+  try {
+    const saved = localStorage.getItem('daxi_checklist_2026');
+    if (!saved) return;
+    const state = JSON.parse(saved);
+    document.querySelectorAll('.check-item').forEach((item, i) => {
+      if (state['check_' + i]) {
+        item.classList.add('done');
+        item.querySelector('.checkbox').classList.add('checked');
+      }
+    });
+    Object.keys(GROUPS).forEach(g => updateProgress(g));
+  } catch(e) {}
+}
+
+// ══ 初始化 ══
+document.addEventListener('DOMContentLoaded', () => {
+  loadChecklist();
+  Object.keys(GROUPS).forEach(g => updateProgress(g));
+});
+</script>
+</body>
+</html>
