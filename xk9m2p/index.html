@@ -41,7 +41,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 16px;
   background: var(--cream);
   color: var(--ink);
   min-height: 100vh;
@@ -81,7 +80,7 @@ body {
 }
 .stamp-text {
   font-family: 'Noto Serif TC', serif;
-  font-size: 11px;
+  font-size: 9px;
   color: var(--weather-primary);
   text-align: center;
   line-height: 1.7;
@@ -89,7 +88,7 @@ body {
   transition: color 0.4s;
 }
 .header-date {
-  font-size: 13px;
+  font-size: 11px;
   color: var(--ink-light);
   letter-spacing: 0.18em;
   margin-bottom: 8px;
@@ -97,7 +96,7 @@ body {
 }
 .header-title {
   font-family: 'Noto Serif TC', serif;
-  font-size: 13px;
+  font-size: 11px;
   letter-spacing: 0.2em;
   color: var(--weather-primary);
   margin-bottom: 3px;
@@ -105,7 +104,7 @@ body {
 }
 .header-main {
   font-family: 'Noto Serif TC', serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 10px;
@@ -118,7 +117,7 @@ body {
   border: 1px solid rgba(247,243,236,0.2);
   border-radius: 3px;
   padding: 2px 8px;
-  font-size: 13px;
+  font-size: 11px;
   color: rgba(247,243,236,0.65);
   letter-spacing: 0.02em;
 }
@@ -143,7 +142,7 @@ body {
   border: none;
   background: transparent;
   font-family: 'Noto Serif TC', serif;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--ink-mid);
   cursor: pointer;
   transition: all 0.2s;
@@ -169,7 +168,7 @@ body {
   border: none;
   background: transparent;
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 11px;
+  font-size: 9.5px;
   color: rgba(247,243,236,0.4);
   cursor: pointer;
   padding: 4px 0;
@@ -178,7 +177,7 @@ body {
   transition: color 0.2s;
   letter-spacing: 0.05em;
 }
-.nav-icon { font-size: 20px; line-height: 1; }
+.nav-icon { font-size: 18px; line-height: 1; }
 .nav-btn.active { color: var(--cream); }
 
 /* ══════════ PAGE ══════════ */
@@ -197,7 +196,7 @@ body {
   border-radius: var(--radius);
   padding: 10px 14px;
   margin-bottom: 14px;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--ink-mid);
   line-height: 1.9;
   position: relative;
@@ -208,7 +207,7 @@ body {
   top: -8px; left: 12px;
   background: var(--cream);
   padding: 0 6px;
-  font-size: 11px;
+  font-size: 9.5px;
   color: var(--weather-primary);
   letter-spacing: 0.1em;
   font-family: 'Noto Serif TC', serif;
@@ -221,7 +220,7 @@ body {
 .sec-title {
   display: flex; align-items: center; gap: 8px;
   font-family: 'Noto Serif TC', serif;
-  font-size: 13px;
+  font-size: 11px;
   color: var(--ink-mid);
   letter-spacing: 0.12em;
   margin: 16px 0 10px;
@@ -235,7 +234,7 @@ body {
   display: flex; flex-direction: column; align-items: center;
 }
 .tl-time {
-  font-size: 13px; font-weight: 700;
+  font-size: 11px; font-weight: 700;
   color: var(--weather-primary);
   text-align: center; line-height: 1.3;
   padding-top: 14px; white-space: pre-line;
@@ -265,12 +264,12 @@ body {
 .tl-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
 .tl-activity {
   font-family: 'Noto Serif TC', serif;
-  font-size: 15px; font-weight: 700;
+  font-size: 13.5px; font-weight: 700;
   line-height: 1.4; flex: 1;
   letter-spacing: 0.02em;
 }
 .tl-badge {
-  font-size: 12px; font-weight: 500;
+  font-size: 10px; font-weight: 500;
   padding: 2px 7px; border-radius: 3px;
   white-space: nowrap; flex-shrink: 0;
   letter-spacing: 0.02em;
@@ -279,12 +278,12 @@ body {
 .badge-a { background: #E4EEE4; color: #2E6B2E; }
 .badge-b { background: #E3EDF8; color: #2B5C8A; }
 .badge-all-teal { background: var(--teal-light); color: var(--teal); }
-.tl-note { font-size: 13px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+.tl-note { font-size: 11.5px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
 
 /* 膠帶風格標籤 */
 .tape-chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 7px; }
 .tape-chip {
-  font-size: 12px; padding: 2px 8px;
+  font-size: 10px; padding: 2px 8px;
   background: var(--gold-light);
   border: 1px solid rgba(196,146,58,0.25);
   border-radius: 2px;
@@ -305,7 +304,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 4px 10px;
-  font-size: 13px; font-weight: 500;
+  font-size: 11px; font-weight: 500;
   color: var(--ink-mid);
   text-decoration: none;
   cursor: pointer;
@@ -324,7 +323,7 @@ body {
 .detail-row {
   display: flex; gap: 8px;
   padding: 4px 0;
-  font-size: 13px;
+  font-size: 11.5px;
   border-bottom: 1px solid var(--cream-dark);
 }
 .detail-row:last-child { border-bottom: none; }
@@ -333,11 +332,10 @@ body {
 .toggle-detail {
   display: inline-flex; align-items: center; gap: 3px;
   margin-top: 7px;
-  font-size: 12px; color: var(--ink-light);
+  font-size: 10.5px; color: var(--ink-light);
   cursor: pointer; letter-spacing: 0.05em;
   background: none; border: none;
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 16px;
   padding: 0;
 }
 .toggle-detail:hover { color: var(--ink-mid); }
@@ -350,11 +348,11 @@ body {
   border: 1px dashed rgba(196,146,58,0.35);
   border-radius: var(--radius-sm);
   padding: 8px 11px;
-  font-size: 13px; color: var(--ink-mid);
+  font-size: 11.5px; color: var(--ink-mid);
   margin-top: 8px; line-height: 1.6;
 }
 .callout.teal { background: var(--teal-light); border-color: rgba(46,122,107,0.25); }
-.callout-title { font-weight: 700; font-size: 13px; margin-bottom: 2px; color: var(--gold); letter-spacing: 0.05em; }
+.callout-title { font-weight: 700; font-size: 11px; margin-bottom: 2px; color: var(--gold); letter-spacing: 0.05em; }
 .callout-title.teal { color: var(--teal); }
 
 /* ══════════ 收據風格費用 ══════════ */
@@ -381,14 +379,14 @@ body {
 }
 .receipt-title {
   font-family: 'Noto Serif TC', serif;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--ink-mid);
   letter-spacing: 0.15em;
 }
 .receipt-row {
   display: flex; justify-content: space-between;
   padding: 7px 16px;
-  font-size: 14px;
+  font-size: 12.5px;
   border-bottom: 1px dotted var(--cream-dark);
   font-family: 'Noto Serif TC', serif;
 }
@@ -404,7 +402,7 @@ body {
   display: flex; justify-content: space-between;
   padding: 10px 16px 14px;
   font-family: 'Noto Serif TC', serif;
-  font-weight: 700; font-size: 16px;
+  font-weight: 700; font-size: 14px;
   color: var(--weather-primary);
   transition: color 0.4s;
 }
@@ -433,29 +431,29 @@ body {
 }
 .spot-name {
   font-family: 'Noto Serif TC', serif;
-  font-size: 17px; font-weight: 700;
+  font-size: 15px; font-weight: 700;
   letter-spacing: 0.02em;
 }
 .spot-type {
-  font-size: 12px; color: var(--ink-light);
+  font-size: 10px; color: var(--ink-light);
   letter-spacing: 0.08em; margin-top: 2px;
 }
-.spot-expand { font-size: 20px; color: var(--ink-light); transition: transform 0.2s; }
+.spot-expand { font-size: 18px; color: var(--ink-light); transition: transform 0.2s; }
 .spot-expand.open { transform: rotate(180deg); }
 .spot-body { display: none; padding: 12px 14px; }
 .spot-body.open { display: block; }
 .spot-row {
   display: flex; gap: 8px;
   padding: 5px 0;
-  font-size: 14px;
+  font-size: 12px;
   border-bottom: 1px solid var(--cream-dark);
   line-height: 1.5;
 }
 .spot-row:last-child { border-bottom: none; }
-.spot-key { color: var(--ink-light); flex-shrink: 0; width: 62px; font-size: 13px; }
+.spot-key { color: var(--ink-light); flex-shrink: 0; width: 62px; font-size: 11px; }
 .spot-val { color: var(--ink-mid); }
 .spot-desc {
-  font-size: 14px; color: var(--ink-mid);
+  font-size: 12px; color: var(--ink-mid);
   line-height: 1.7; margin-bottom: 10px;
   font-weight: 300; font-style: italic;
   border-left: 2px solid var(--cream-mid);
@@ -463,7 +461,7 @@ body {
 }
 .spot-tag {
   display: inline-block;
-  font-size: 12px; padding: 2px 8px;
+  font-size: 10px; padding: 2px 8px;
   border-radius: 3px; margin: 2px 3px 2px 0;
   font-weight: 500;
 }
@@ -478,7 +476,7 @@ body {
   display: inline-flex; align-items: center; gap: 4px;
   padding: 5px 11px;
   border-radius: 4px;
-  font-size: 13px; font-weight: 500;
+  font-size: 11.5px; font-weight: 500;
   text-decoration: none; cursor: pointer;
   border: 1px solid var(--border);
   background: var(--cream);
@@ -495,9 +493,9 @@ body {
   border-radius: var(--radius-sm);
   padding: 8px 11px;
   margin-bottom: 6px;
-  font-size: 13px; line-height: 1.6;
+  font-size: 11.5px; line-height: 1.6;
 }
-.group-note-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; color: var(--ink); }
+.group-note-title { font-weight: 700; font-size: 11px; margin-bottom: 3px; color: var(--ink); }
 
 /* 狗狗時間表 */
 .dog-table {
@@ -510,18 +508,18 @@ body {
 .dog-head {
   display: grid; grid-template-columns: 70px 1fr 75px;
   background: var(--ink); color: var(--cream);
-  font-size: 13px; letter-spacing: 0.08em;
+  font-size: 11px; letter-spacing: 0.08em;
   padding: 8px 12px; font-weight: 500;
 }
 .dog-row {
   display: grid; grid-template-columns: 70px 1fr 75px;
-  font-size: 14px; padding: 7px 12px;
+  font-size: 12px; padding: 7px 12px;
   border-bottom: 1px solid var(--cream-dark);
   color: var(--ink-mid); line-height: 1.4;
 }
 .dog-row:nth-child(even) { background: var(--cream); }
 .dog-row:last-child { border-bottom: none; font-weight: 700; color: var(--ink); background: var(--gold-light); }
-.dog-time { color: var(--ink-light); font-size: 13px; }
+.dog-time { color: var(--ink-light); font-size: 11px; }
 
 /* ══════════ 餐廳卡片 ══════════ */
 .resto-card {
@@ -541,20 +539,19 @@ body {
   border-left: 28px solid transparent;
 }
 .resto-card.backup::after { border-top-color: var(--teal-light); }
-.resto-type { font-size: 12px; letter-spacing: 0.1em; color: var(--rust); margin-bottom: 4px; font-weight: 500; }
+.resto-type { font-size: 10px; letter-spacing: 0.1em; color: var(--rust); margin-bottom: 4px; font-weight: 500; }
 .resto-type.backup { color: var(--teal); }
-.resto-name { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.02em; }
-.resto-info { font-size: 14px; color: var(--ink-mid); line-height: 1.9; font-weight: 300; }
+.resto-name { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.02em; }
+.resto-info { font-size: 12px; color: var(--ink-mid); line-height: 1.9; font-weight: 300; }
 .resto-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .resto-btn {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 6px 13px;
-  border-radius: 5px; font-size: 14px; font-weight: 500;
+  border-radius: 5px; font-size: 12px; font-weight: 500;
   cursor: pointer; text-decoration: none;
   border: 1px solid var(--border);
   background: var(--cream); color: var(--ink-mid);
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 16px;
   transition: all 0.15s;
 }
 .resto-btn:hover { background: var(--cream-dark); }
@@ -575,14 +572,14 @@ body {
   background: var(--ink);
   color: var(--cream);
   font-family: 'Noto Serif TC', serif;
-  font-size: 15px; font-weight: 600;
+  font-size: 13px; font-weight: 600;
   letter-spacing: 0.05em;
   display: flex; align-items: center; gap: 8px;
 }
 .notice-item {
   display: flex; align-items: flex-start; gap: 8px;
   padding: 8px 14px;
-  font-size: 14px; line-height: 1.6;
+  font-size: 12.5px; line-height: 1.6;
   border-bottom: 1px solid var(--cream-dark);
 }
 .notice-item:last-child { border-bottom: none; }
@@ -613,10 +610,10 @@ body {
 }
 .check-period {
   font-family: 'Noto Serif TC', serif;
-  font-size: 14px; color: var(--teal);
+  font-size: 12px; color: var(--teal);
   letter-spacing: 0.08em;
 }
-.check-progress-text { font-size: 13px; color: var(--ink-light); }
+.check-progress-text { font-size: 11px; color: var(--ink-light); }
 .check-progress-bar {
   height: 3px; background: var(--cream-dark);
   border-radius: 3px; margin-bottom: 10px;
@@ -628,7 +625,7 @@ body {
 }
 .check-item {
   display: flex; align-items: flex-start; gap: 9px;
-  padding: 5px 0; font-size: 14px; line-height: 1.5;
+  padding: 5px 0; font-size: 12.5px; line-height: 1.5;
   cursor: pointer;
 }
 .checkbox {
@@ -639,7 +636,7 @@ body {
   background: white; transition: all 0.15s;
 }
 .checkbox.checked { background: var(--teal); border-color: var(--teal); }
-.checkbox.checked::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+.checkbox.checked::after { content: '✓'; color: white; font-size: 9px; font-weight: 700; }
 .check-item.done .check-text { text-decoration: line-through; color: var(--ink-light); }
 
 /* ══════════ 緊急頁面 ══════════ */
@@ -653,7 +650,7 @@ body {
 }
 .emerg-card-title {
   font-family: 'Noto Serif TC', serif;
-  font-size: 14px; letter-spacing: 0.08em;
+  font-size: 12px; letter-spacing: 0.08em;
   color: var(--ink-mid);
   padding: 9px 14px;
   background: var(--cream-dark);
@@ -662,7 +659,7 @@ body {
 .emerg-row {
   display: flex; justify-content: space-between;
   align-items: center; padding: 8px 14px;
-  font-size: 14px;
+  font-size: 12.5px;
   border-bottom: 1px solid var(--cream-dark);
 }
 .emerg-row:last-child { border-bottom: none; }
@@ -674,7 +671,7 @@ body {
 .case-item {
   padding: 9px 14px;
   border-bottom: 1px solid var(--cream-dark);
-  font-size: 14px; line-height: 1.6;
+  font-size: 12px; line-height: 1.6;
 }
 .case-item:last-child { border-bottom: none; }
 .case-q { font-weight: 700; color: var(--rust); margin-bottom: 3px; }
@@ -758,9 +755,9 @@ body {
       <div class="tl-left"><div class="tl-time">08:00</div><div class="tl-line"></div></div>
       <div class="tl-card">
         <div class="tl-top"><div class="tl-activity">抵達南口停車場</div><span class="tl-badge badge-a">A家庭</span></div>
-        <div class="tl-note">百吉隧道南口附近，龍形橋周邊停車</div>
+        <div class="tl-note">隧道口周邊路旁白線區域，龍形橋周邊停車</div>
         <div class="tape-chips"><span class="tape-chip">🅿️ 停車</span></div>
-        <a class="map-btn" href="https://maps.app.goo.gl/example" target="_blank">📍 Google Maps</a>
+        <a class="map-btn" href="https://maps.app.goo.gl/AUxthM4C4pQFrYEt5" target="_blank">📍 Google Maps</a>
       </div>
     </div>
 
@@ -851,14 +848,14 @@ body {
         <div class="tl-top"><div class="tl-activity">豆麥私房菜午餐</div><span class="tl-badge badge-all">全員</span></div>
         <div class="tl-note">台式合菜，湖景環境，已預訂安靜座位</div>
         <div class="tape-chips"><span class="tape-chip">🍽️ 午餐</span></div>
-        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+        <a class="map-btn" href="https://maps.app.goo.gl/g1S34u234xjYLaQK6" target="_blank">📍 Google Maps</a>
       </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-left"><div class="tl-time">12:30</div><div class="tl-line"></div></div>
       <div class="tl-card">
-        <div class="tl-top"><div class="tl-activity">前往花開了農園午休</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-top"><div class="tl-activity">前往花開了休閒農園午休</div><span class="tl-badge badge-all">全員</span></div>
         <div class="tl-note">車程約 5 分鐘，同在復興路二段</div>
         <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
       </div>
@@ -867,12 +864,12 @@ body {
     <div class="tl-item">
       <div class="tl-left"><div class="tl-time">12:45</div><div class="tl-line"></div></div>
       <div class="tl-card">
-        <div class="tl-top"><div class="tl-activity">花開了農園午休</div><span class="tl-badge badge-all">全員</span></div>
+        <div class="tl-top"><div class="tl-activity">花開了休閒農園午休</div><span class="tl-badge badge-all">全員</span></div>
         <div class="tl-note">2歲午睡、長輩午休、狗狗草地休息｜至少 45 分鐘不可壓縮</div>
         <div class="tape-chips"><span class="tape-chip">💤 午休</span></div>
         <div class="callout">
-          <div class="callout-title">A家庭媽媽（體力好長輩）備案</div>
-          若不想在農園等待，可前往附近步道散步（待確認）
+          <div class="callout-title">A家庭媽媽備案</div>
+          若不想在農園等待，可前往大溪老茶廠逛逛（車程約 5 分鐘），臘腸犬戶外可牽繩同行，約 15:00～17:00，再直接前往老地方客家菜集合
         </div>
       </div>
     </div>
@@ -887,7 +884,7 @@ body {
           <div class="callout-title">長輩同步</div>
           在涼亭乘蔭休息，不強迫參與設施
         </div>
-        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+        <a class="map-btn" href="https://maps.app.goo.gl/6BKf2X6Rchkvw3Qj8" target="_blank">📍 Google Maps</a>
       </div>
     </div>
 
@@ -906,7 +903,7 @@ body {
         <div class="tl-top"><div class="tl-activity">老地方客家菜晚餐</div><span class="tl-badge badge-all">全員</span></div>
         <div class="tl-note">道地客家料理，台式口味，已網路訂位</div>
         <div class="tape-chips"><span class="tape-chip">🍽️ 晚餐</span></div>
-        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+        <a class="map-btn" href="https://maps.app.goo.gl/TA3Mm21Rm3Hbq8WCA" target="_blank">📍 Google Maps</a>
       </div>
     </div>
 
@@ -962,12 +959,7 @@ body {
         <div class="tl-top"><div class="tl-activity">抵達大溪老茶廠</div><span class="tl-badge badge-all-teal">全員</span></div>
         <div class="tl-note">免費停車場，開門前稍早抵達</div>
         <div class="tape-chips"><span class="tape-chip">🅿️ 停車</span></div>
-        <a class="map-btn" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">09:30</div><div class="tl-line"></div></div>
+        <a class="map-btn" href="https://maps.app.goo.gl/vXLASLv3ZZwFxXgg7" target="_blank">📍 Google Maps</a>
       <div class="tl-card" style="border-left-color:var(--teal)">
         <div class="tl-top"><div class="tl-activity">大溪老茶廠參觀</div><span class="tl-badge badge-all-teal">全員</span></div>
         <div class="tl-note">一樓展售區、茶書屋、製茶區、靜水池｜門票 150 元折抵 100 元消費</div>
@@ -1018,7 +1010,7 @@ body {
     <div class="tl-item">
       <div class="tl-left"><div class="tl-time" style="color:var(--teal)">13:30</div><div class="tl-line"></div></div>
       <div class="tl-card" style="border-left-color:var(--teal)">
-        <div class="tl-top"><div class="tl-activity">花開了農園室內遊樂</div><span class="tl-badge badge-b">B家庭孩子</span></div>
+        <div class="tl-top"><div class="tl-activity">花開了休閒農園室內遊樂</div><span class="tl-badge badge-b">B家庭孩子</span></div>
         <div class="tl-note">小火車、F1 賽車、夢幻城堡｜雨天戶外玩水區關閉</div>
         <div class="tape-chips"><span class="tape-chip">🎠 農園</span><span class="tape-chip">🏠 室內</span></div>
         <div class="callout teal">
@@ -1029,11 +1021,20 @@ body {
     </div>
 
     <div class="tl-item">
+      <div class="tl-left"><div class="tl-time" style="color:var(--teal)">15:00</div><div class="tl-line"></div></div>
+      <div class="tl-card" style="border-left-color:var(--teal)">
+        <div class="tl-top"><div class="tl-activity">A家庭前往大溪老街</div><span class="tl-badge badge-a">A家庭</span></div>
+        <div class="tl-note">媽媽＋臘腸犬散步大溪老街，騎樓多不怕雨，車程約 15 分鐘｜B家庭繼續留在花開了</div>
+        <div class="tape-chips"><span class="tape-chip">🏘️ 老街</span><span class="tape-chip">🐾 遛狗</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item">
       <div class="tl-left"><div class="tl-time" style="color:var(--teal)">17:00</div><div class="tl-line"></div></div>
       <div class="tl-card" style="border-left-color:var(--teal)">
-        <div class="tl-top"><div class="tl-activity">離開花開了，前往老地方客家菜</div><span class="tl-badge badge-all-teal">全員</span></div>
-        <div class="tl-note">車程約 15 分鐘，17:30 晚餐</div>
-        <div class="tape-chips"><span class="tape-chip">🚗 交通</span><span class="tape-chip">🍽️ 晚餐</span></div>
+        <div class="tl-top"><div class="tl-activity">兩組各自前往老地方客家菜</div><span class="tl-badge badge-all-teal">全員</span></div>
+        <div class="tl-note">A家庭從老街出發、B家庭從花開了出發，餐廳集合｜車程各約 15 分鐘</div>
+        <div class="tape-chips"><span class="tape-chip">🚗 交通</span></div>
       </div>
     </div>
 
@@ -1085,19 +1086,14 @@ body {
       <div style="height:10px"></div>
       <div class="spot-row"><span class="spot-key">全長</span><span class="spot-val">約 3 公里，步行約 50 分鐘</span></div>
       <div class="spot-row"><span class="spot-key">路面</span><span class="spot-val">全程柏油路，無階梯，推車可通行</span></div>
-      <div class="spot-row"><span class="spot-key">停車</span><span class="spot-val">百吉隧道南口附近路邊，龍形橋周邊</span></div>
+      <div class="spot-row"><span class="spot-key">停車</span><span class="spot-val">隧道口周邊路旁白線區域，龍形橋周邊</span></div>
       <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">✅ 可同行，需牽繩</span></div>
       <div class="spot-row"><span class="spot-key">長輩</span><span class="spot-val">全程平坦，體力有限長輩也可輕鬆完成</span></div>
       <div class="spot-row"><span class="spot-key">孩子</span><span class="spot-val">2歲可推車或抱，5歲自走完全沒問題</span></div>
       <div class="spot-row"><span class="spot-key">注意</span><span class="spot-val">夏季蚊蟲較多，建議防蚊液；假日人潮多</span></div>
       <div class="spot-links">
         <a class="spot-link primary" href="https://hiking.biji.co/index.php?q=trail&act=detail&id=519" target="_blank">🗺️ 健行筆記路線圖</a>
-        <a class="spot-link" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 舊百吉隧道 -->
+        <a class="spot-link" href="https://maps.app.goo.gl/9qiX8Drj4VS6fiUt5" target="_blank">📍 Google Maps</a>
   <div class="spot-card">
     <div class="spot-header" onclick="toggleSpot(this)">
       <div><div class="spot-name">舊百吉隧道</div><div class="spot-type">OLD BAIJI TUNNEL</div></div>
@@ -1117,7 +1113,7 @@ body {
       <div class="spot-row"><span class="spot-key">位置</span><span class="spot-val">百吉林蔭步道北口旁，兩步道可串聯</span></div>
       <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">✅ 可同行，需牽繩</span></div>
       <div class="spot-links">
-        <a class="spot-link" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+        <a class="spot-link" href="https://maps.app.goo.gl/jV3MpqzBAK8CXFwA6" target="_blank">📍 Google Maps</a>
       </div>
     </div>
   </div>
@@ -1145,12 +1141,7 @@ body {
       <div class="spot-row"><span class="spot-key">注意</span><span class="spot-val">蚊蠅蜘蛛網多，務必噴防蚊液並備登山杖</span></div>
       <div class="spot-links">
         <a class="spot-link primary" href="https://hiking.biji.co/index.php?q=trail&act=detail&id=934" target="_blank">🗺️ 健行筆記路線圖</a>
-        <a class="spot-link" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 花開了農園 -->
+        <a class="spot-link" href="https://maps.app.goo.gl/6uXS5gNxaWBJSJ2T9" target="_blank">📍 Google Maps</a>
   <div class="spot-card">
     <div class="spot-header" onclick="toggleSpot(this)">
       <div><div class="spot-name">花開了休閒農園</div><div class="spot-type">HUAKAILE FARM</div></div>
@@ -1172,7 +1163,7 @@ body {
       <div class="spot-row"><span class="spot-key">雨天</span><span class="spot-val">戶外玩水區關閉，室內設施（小火車、賽車、城堡）照常</span></div>
       <div class="spot-row"><span class="spot-key">注意</span><span class="spot-val">假日 11:00 後無法訂位，本次下午前往無需訂位</span></div>
       <div class="spot-links">
-        <a class="spot-link primary" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+        <a class="spot-link primary" href="https://maps.app.goo.gl/6BKf2X6Rchkvw3Qj8" target="_blank">📍 Google Maps</a>
       </div>
 
       <div class="group-notes">
@@ -1203,21 +1194,23 @@ body {
     <div class="spot-body">
       <p class="spot-desc">日治時期建造的製茶工廠，全室內參觀，有茶書屋、製茶機器展示、靜水池，長輩最喜歡的歷史文化氛圍，雨天最佳備案。</p>
       <div>
-        <span class="spot-tag tag-pet">🐾 需寵物袋</span>
+        <span class="spot-tag tag-pet">🐾 戶外牽繩可同行</span>
         <span class="spot-tag tag-elder">👴 長輩最愛</span>
         <span class="spot-tag tag-kid">👶 5歲尚可</span>
+        <span class="spot-tag tag-sunny">☀️ 晴天下午備案</span>
         <span class="spot-tag tag-rainy">🌧️ 雨天首選</span>
       </div>
       <div style="height:10px"></div>
-      <div class="spot-row"><span class="spot-key">地址</span><span class="spot-val">桃園市大溪區員林路一段</span></div>
-      <div class="spot-row"><span class="spot-key">電話</span><span class="spot-val">03-388-0835</span></div>
+      <div class="spot-row"><span class="spot-key">地址</span><span class="spot-val">桃園市大溪區新峰里復興路二段 732 巷 80 號</span></div>
+      <div class="spot-row"><span class="spot-key">電話</span><span class="spot-val">03-382-5089</span></div>
       <div class="spot-row"><span class="spot-key">營業</span><span class="spot-val">09:30～17:00（全年無休）</span></div>
       <div class="spot-row"><span class="spot-key">門票</span><span class="spot-val">150 元，可折抵 100 元消費；120 公分以下免費</span></div>
       <div class="spot-row"><span class="spot-key">停車</span><span class="spot-val">免費停車場</span></div>
-      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">⚠️ 需裝入寵物袋，已備妥 ✅</span></div>
-      <div class="spot-row"><span class="spot-key">導覽</span><span class="spot-val">11:00、14:30，各 50 分鐘，免費｜本次 09:30 參觀，不參加 11:00 導覽</span></div>
+      <div class="spot-row"><span class="spot-key">寵物</span><span class="spot-val">✅ 戶外可牽繩同行｜室內需裝入寵物袋</span></div>
+      <div class="spot-row"><span class="spot-key">導覽</span><span class="spot-val">11:00、14:30，各 50 分鐘，免費｜雨天本次 09:30 參觀，不參加 11:00 導覽</span></div>
       <div class="spot-links">
-        <a class="spot-link primary" href="https://maps.app.goo.gl/" target="_blank">📍 Google Maps</a>
+        <a class="spot-link primary" href="https://maps.app.goo.gl/vXLASLv3ZZwFxXgg7" target="_blank">📍 Google Maps</a>
+        <a class="spot-link" href="https://maps.app.goo.gl/fxC2zYyZi21rAEteA" target="_blank">🅿️ 停車場</a>
       </div>
 
       <div class="group-notes">
@@ -1264,15 +1257,15 @@ body {
       <div class="resto-name">豆麥私房菜</div>
       <div class="resto-info">
         📍 桃園市大溪區復興路二段 650 號<br>
-        🕐 10:00～20:00<br>
+        🕐 11:00～19:00｜週三公休<br>
         🐾 寵物 ✅ 已確認可入場<br>
         🅿️ 停車場（免費）<br>
-        台式合菜，湖景環境，提前預訂安靜座位<br>
-        📌 菜單連結：待補充
+        台式合菜，湖景環境，提前預訂安靜座位
       </div>
       <div class="resto-actions">
         <a class="resto-btn call" href="tel:033825716">📞 03-382-5716</a>
-        <a class="resto-btn" href="https://maps.app.goo.gl/" target="_blank">📍 導航</a>
+        <a class="resto-btn" href="https://maps.app.goo.gl/g1S34u234xjYLaQK6" target="_blank">📍 導航</a>
+        <a class="resto-btn" href="https://www.facebook.com/share/18SToBaQYa/" target="_blank">📘 Facebook</a>
       </div>
     </div>
 
@@ -1282,17 +1275,18 @@ body {
       <div class="resto-type">晚餐</div>
       <div class="resto-name">老地方客家菜</div>
       <div class="resto-info">
-        📍 桃園市大溪區（詳見 Google Maps）<br>
-        🕐 請出發前確認晚餐營業時間<br>
-        🐾 寵物 ✅ 已確認可入場<br>
-        🅿️ 停車場已確認位置<br>
-        道地客家料理，台式口味，網路訂位<br>
-        📌 菜單連結：待補充
+        📍 桃園市大溪區仁和里員林路一段 489 號<br>
+        🕐 11:00～20:30｜15:30～16:00 工作人員用餐無出餐｜除夕、中秋公休<br>
+        🐾 寵物 ✅ 無障礙空間，寵物友善<br>
+        🅿️ 停車場步行 5 分鐘<br>
+        大溪在地 30 多年，客家料理為主，歡迎提前預訂
       </div>
       <div class="resto-actions">
         <a class="resto-btn call" href="tel:033906863">📞 03-390-6863</a>
-        <a class="resto-btn" href="https://maps.app.goo.gl/ECiuqq1iUteBbMiM6" target="_blank">📍 停車場導航</a>
-        <a class="resto-btn" href="https://maps.app.goo.gl/" target="_blank">🍽️ 餐廳導航</a>
+        <a class="resto-btn" href="https://maps.app.goo.gl/TA3Mm21Rm3Hbq8WCA" target="_blank">📍 導航</a>
+        <a class="resto-btn" href="https://maps.app.goo.gl/8xPZE37tpNGG98gn6" target="_blank">🅿️ 停車場</a>
+        <a class="resto-btn" href="https://www.facebook.com/share/1AT8DdExjT/" target="_blank">📘 Facebook</a>
+        <a class="resto-btn" href="https://www.facebook.com/share/1D45Zug74E/" target="_blank">🍽️ 菜單</a>
       </div>
     </div>
 
@@ -1316,7 +1310,7 @@ body {
       <div class="notice-item"><div class="notice-dot rust"></div><span>備好長輩慣用的舒適步行鞋，步道全程柏油路但仍需止滑</span></div>
       <div class="notice-item"><div class="notice-dot rust"></div><span>午休時間（12:45～13:30）不可壓縮，長輩體力管理最關鍵</span></div>
       <div class="notice-item"><div class="notice-dot rust"></div><span>步道過程中體力不支時，可隨時在涼亭休息，不需強行走完</span></div>
-      <div class="notice-item"><div class="notice-dot rust"></div><span>農園下午若長輩不想待，可前往附近步道散步（A家庭媽媽備案待確認）</span></div>
+      <div class="notice-item"><div class="notice-dot rust"></div><span>農園下午若媽媽不想待，可前往大溪老茶廠（車程 5 分鐘），臘腸犬戶外可牽繩同行，17:00 直接前往老地方集合</span></div>
       <div class="notice-item"><div class="notice-dot rust"></div><span>舅舅（B家庭長輩）體力有限，花開了農園有涼亭及室內休息區可隨時休息</span></div>
     </div>
 
@@ -1335,7 +1329,7 @@ body {
     <div class="notice-group">
       <div class="notice-header">🐾 狗狗注意事項</div>
       <div class="notice-item"><div class="notice-dot teal"></div><span>出發前 30 分鐘服暈車藥，返程前同樣服用</span></div>
-      <div class="notice-item"><div class="notice-dot teal"></div><span>備妥寵物袋（老茶廠雨天必要、TINA廚房已移除行程）</span></div>
+      <div class="notice-item"><div class="notice-dot teal"></div><span>備妥寵物袋（老茶廠室內必要）</span></div>
       <div class="notice-item"><div class="notice-dot teal"></div><span>步道全程需牽繩，總督府步道陡坡段需抱著通過</span></div>
       <div class="notice-item"><div class="notice-dot teal"></div><span>農場蚊蟲多，替狗狗準備防蚊噴劑（寵物專用）</span></div>
       <div class="notice-item"><div class="notice-dot teal"></div><span>隨時備好水碗、狗糧、尿袋</span></div>
@@ -1376,24 +1370,22 @@ body {
     <div class="check-group" id="group-twoweeks">
       <div class="check-period-header">
         <span class="check-period">📅 出發前兩週</span>
-        <span class="check-progress-text" id="prog-twoweeks">0 / 4</span>
+        <span class="check-progress-text" id="prog-twoweeks">0 / 3</span>
       </div>
       <div class="check-progress-bar"><div class="check-progress-fill" id="fill-twoweeks" style="width:0%"></div></div>
-      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">電話預訂豆麥私房菜（03-382-5716），告知人數、帶狗、需安靜座位</span></div>
-      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">網路訂位老地方客家菜，告知人數、帶狗</span></div>
-      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">確認花開了農園週六寵物入場細節（03-387-9195）</span></div>
-      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">確認老地方客家菜詳細地址與停車資訊</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">電話預訂豆麥私房菜（03-382-5716），告知人數、帶狗、需安靜座位（週三公休勿選）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">網路訂位老地方客家菜，告知人數、帶狗（注意 15:30～16:00 無出餐，17:30 訂位）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'twoweeks')"><div class="checkbox"></div><span class="check-text">確認老地方客家菜詳細停車資訊（停車場步行 5 分鐘，已有導航連結）</span></div>
     </div>
 
     <div class="check-group" id="group-oneweek">
       <div class="check-period-header">
         <span class="check-period">📅 出發前一週</span>
-        <span class="check-progress-text" id="prog-oneweek">0 / 3</span>
+        <span class="check-progress-text" id="prog-oneweek">0 / 2</span>
       </div>
       <div class="check-progress-bar"><div class="check-progress-fill" id="fill-oneweek" style="width:0%"></div></div>
-      <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認A家庭媽媽下午步道備案（待確認）</span></div>
-      <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認豆麥與老地方菜單連結（待補充）</span></div>
       <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認狗狗暈車藥備量足夠（來回各一次）</span></div>
+      <div class="check-item" onclick="toggleCheck(this,'oneweek')"><div class="checkbox"></div><span class="check-text">確認寵物袋備妥，臘腸犬可舒適放入（老茶廠室內使用）</span></div>
     </div>
 
     <div class="check-group" id="group-dayb4">
@@ -1447,7 +1439,9 @@ body {
     <div class="emerg-card">
       <div class="emerg-card-title">🐾 寵物緊急資訊</div>
       <div class="emerg-row"><span class="emerg-label">狗狗走失</span><span class="emerg-val neutral" style="text-align:right;font-size:12px">桃園市動物保護處<br><a href="tel:033325455" style="color:var(--rust)">03-332-5455</a></span></div>
-      <div class="emerg-row"><span class="emerg-label">24H 動物急診</span><span class="emerg-val neutral" style="font-size:12px">出發前確認大溪在地診所</span></div>
+      <div class="emerg-row"><span class="emerg-label">品湛動物醫院</span><span class="emerg-val neutral" style="text-align:right;font-size:12px">桃園市桃園區民生路 495-9 號<br><a href="tel:033363252" style="color:var(--rust)">03-336-3252</a></span></div>
+      <div class="emerg-row"><span class="emerg-label">元氣動物醫院</span><span class="emerg-val neutral" style="text-align:right;font-size:12px">桃園市桃園區三民路三段 381 號<br><a href="tel:033333816" style="color:var(--rust)">03-333-3816</a></span></div>
+      <div class="emerg-row"><span class="emerg-label">注意</span><span class="emerg-val neutral" style="font-size:12px">急診前務必先電話確認</span></div>
     </div>
 
     <div class="emerg-card">
@@ -1537,8 +1531,8 @@ function toggleSpot(header) {
 
 // ══ 確認清單 + localStorage ══
 const GROUPS = {
-  twoweeks: 4,
-  oneweek: 3,
+  twoweeks: 3,
+  oneweek: 2,
   dayb4: 5,
   morning: 5
 };
